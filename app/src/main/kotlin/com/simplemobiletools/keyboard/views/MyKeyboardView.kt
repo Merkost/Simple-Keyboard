@@ -120,8 +120,8 @@ class MyKeyboardView @JvmOverloads constructor(context: Context, attrs: Attribut
     private var mPopupParent: View
     private var mMiniKeyboardOffsetX = 0
     private var mMiniKeyboardOffsetY = 0
-    private val mMiniKeyboardCache: MutableMap<MyKeyboard.Key, View?>
-    private var mKeys = ArrayList<MyKeyboard.Key>()
+    private val mMiniKeyboardCache: MutableMap<Key, View?>
+    private var mKeys = ArrayList<Key>()
     private var mMiniKeyboardSelectedKeyIndex = -1
 
     var mOnKeyboardActionListener: OnKeyboardActionListener? = null
@@ -295,7 +295,7 @@ class MyKeyboardView @JvmOverloads constructor(context: Context, attrs: Attribut
         removeMessages()
         mKeyboard = keyboard
         val keys = mKeyboard!!.mKeys
-        mKeys = keys!!.toMutableList() as ArrayList<MyKeyboard.Key>
+        mKeys = keys!!.toMutableList() as ArrayList<Key>
         requestLayout()
         mKeyboardChanged = true
         invalidateAllKeys()
@@ -673,7 +673,7 @@ class MyKeyboardView @JvmOverloads constructor(context: Context, attrs: Attribut
         mDirtyRect.setEmpty()
     }
 
-    private fun setupKeyBackground(key: MyKeyboard.Key, keyCode: Int, canvas: Canvas) {
+    private fun setupKeyBackground(key: Key, keyCode: Int, canvas: Canvas) {
         val keyBackground = when (keyCode) {
             KEYCODE_SPACE -> getSpaceKeyBackground()
             KEYCODE_ENTER -> getEnterKeyBackground()
@@ -1033,7 +1033,7 @@ class MyKeyboardView @JvmOverloads constructor(context: Context, attrs: Attribut
      * @return true if the long press is handled, false otherwise. Subclasses should call the method on the base class if the subclass doesn't wish to
      * handle the call.
      */
-    private fun onLongPress(popupKey: MyKeyboard.Key, me: MotionEvent): Boolean {
+    private fun onLongPress(popupKey: Key, me: MotionEvent): Boolean {
         if (popupKey.code == KEYCODE_EMOJI) {
             ChangeLanguagePopup(this, onSelect = {
                 mOnKeyboardActionListener?.reloadKeyboard()
